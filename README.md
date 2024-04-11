@@ -31,13 +31,13 @@ python manage.py runserver
 - В проекте два основных пакета: `survey` и `api.survey_api`.
 - В `survey` находятся модели, views для веб интерфейса, urls, а также шаблоны. Данные агрегируются посредством API запросов к `survey_api` с помощью библиотеки requests.
 - В `survey_api` находятся views для API, сериализаторы и urls.
-- Также в пакете `survey_api` находится модуль `analytics.py`, который содержит функции сбора общей информации по пройденным опросам.
+- Также в пакете `survey_api` находится модуль `analytics.py`, который содержит функции сбора общей информации по пройденным тестам.
 
 ## API url endpoints
 
-- `/api/v1/survey/` GET - список всех опросов
-- `/api/v1/survey/` POST - создание нового опроса
-- `/api/v1/survey/<int:survey_id>/questions/` GET - список вопросов для опроса
-- `/api/v1/survey/<int:survey_id>/questions/` POST - создание нового вопроса для опроса
-- `/api/v1/survey/<int:survey_id>/user_answers/` POST - ответы пользователя на вопросы опроса
-- `/api/v1/survey/<int:survey_id>/analytics/` GET - аналитика по опросу
+- `/api/v1/survey/` GET - список всех тестов
+- `/api/v1/survey/` POST - создание нового теста
+- `/api/v1/survey/<int:survey_id>/questions/` GET - список вопросов для теста
+- `/api/v1/survey/<int:survey_id>/questions/` POST - создание нового вопроса для теста
+- `/api/v1/survey/<int:survey_id>/user_answers/` POST - ответы пользователя на вопросы теста
+- `/api/v1/survey/<int:survey_id>/analytics/` GET - аналитика по тесту
