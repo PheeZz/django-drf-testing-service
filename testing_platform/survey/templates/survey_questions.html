@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Questions</title>
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        function checkAnswers() {
+            var radios = document.querySelectorAll("input[type='radio']");
+            var answeredCount = 0;
+
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    answeredCount++;
+                }
+            }
+            if (answeredCount == radios.length / 2) {
+                document.getElementById("submit_btn").disabled = false;
+            } else {
+                document.getElementById("submit_btn").disabled = true;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1 align="center">{{ survey_name }}</h1>
+    <p align="center">
+        <a href="{% url 'survey_analytics' survey_id=survey_id %}?name={{ survey_name }}">Аналитика</a>
+    </p>
+    <div align="center">
+        <form method="POST" action="{% url 'submit_answers' survey_id=survey_id %}?name={{ survey_name }}">
+            {% csrf_token %}
+            <ul>
+                {% for question in questions %}
+                <li>
+                    <p>{{ question.question_text }}</p>
+                    <label>
+                        <input type="radio" name="answer_{{ question.id }}" value="true" onchange=checkAnswers()> Да
+                    </label>
+                    <label>
+                        <input type="radio" name="answer_{{ question.id }}" value="false" onchange=checkAnswers()> Нет
+                    </label>
+                </li>
+                {% empty %}
+                <li>No questions available</li>
+                {% endfor %}
+            </ul>
+            <button type="submit" id="submit_btn" disabled>Отправить ответы</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Survey, Question
+from .models import Question, Survey
 
 # Register your models here.
 

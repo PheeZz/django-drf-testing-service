@@ -1,5 +1,8 @@
-from testing_platform.survey.models import Survey, Question, UserAnswer
+import math
+
 from django.db import models
+
+from testing_platform.survey.models import Question, UserAnswer
 
 
 class SurveyAnalyticsCollector:
@@ -14,11 +17,11 @@ class SurveyAnalyticsCollector:
 
     @classmethod
     def calculate_success_rate_percentage(cls, survey_id: int) -> float:
-        users_finished_survey = cls._get_users_ids_finished_survey(survey_id)
+        users_ids_finished_survey = cls._get_users_ids_finished_survey(survey_id)
         questions_count = Question.objects.filter(survey_id=survey_id).count()
         users_with_correct_answers_bigger_than_half = 0
 
-        for user in users_finished_survey:
+        for user in users_ids_finished_survey:
             user_answers = UserAnswer.objects.filter(user_id=user["user_id"])
             correct_answers = user_answers.filter(
                 user_answer=models.F("question__correct_answer")
@@ -26,18 +29,20 @@ class SurveyAnalyticsCollector:
             if correct_answers > questions_count / 2:
                 users_with_correct_answers_bigger_than_half += 1
 
-        return users_with_correct_answers_bigger_than_half / len(users_finished_survey) * 100
+        return round(
+            users_with_correct_answers_bigger_than_half / len(users_ids_finished_survey) * 100, 3
+        )
 
     @classmethod
     def calculate_hardest_question(cls, survey_id: int) -> str:
         questions = Question.objects.filter(survey_id=survey_id)
         hardest_question = None
-        hardest_question_correct_answers = 0
+        hardest_question_correct_answers = math.inf
         for question in questions:
             correct_answers = UserAnswer.objects.filter(
                 question_id=question.id, user_answer=question.correct_answer
             ).count()
-            if correct_answers > hardest_question_correct_answers:
+            if correct_answers < hardest_question_correct_answers:
                 hardest_question = question
                 hardest_question_correct_answers = correct_answers
         return hardest_question.question_text

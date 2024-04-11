@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import SurveyAPIList, QuestionList, UserAnswerList, SurveyAnalytics
+from .views import QuestionList, SurveyAnalytics, SurveyAPIList, UserAnswerList
 
 urlpatterns = [
     path("", SurveyAPIList.as_view(), name="survey"),

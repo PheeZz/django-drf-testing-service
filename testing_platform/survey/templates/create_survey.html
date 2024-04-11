@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Survey</title>
+</head>
+
+<body>
+    <h1>Create a New Survey</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ survey_form.as_p }}
+        {{ question_formset.management_form }}
+        {% for form in question_formset %}
+        {{ form.as_p }}
+        {% endfor %}
+        <button type="submit">Create Survey</button>
+    </form>
+    {% if error_message %}
+    <p>{{ error_message }}</p>
+    {% endif %}
+</body>
+
+</html>

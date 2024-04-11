@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аналитика</title>
+</head>
+
+<body>
+    <h1>Аналитика по тесту {{ survey_name }}</h1>
+    <div>
+        <p>Количество прохождений: {{ analytics.pass_count }}</p>
+        <p>Успешность прохождений: {{ analytics.success_rate }}</p>
+        <p>Самый сложный вопрос: {{ analytics.hardest_question }}</p>
+    </div>
+    <a href="{% url 'survey_list' %}">Вернуться к списку тестов</a>
+</body>
+
+</html>

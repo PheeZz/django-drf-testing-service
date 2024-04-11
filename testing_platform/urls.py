@@ -17,11 +17,14 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-from testing_platform.api.survey_api.urls import urlpatterns as survey_urls
+
+from testing_platform.api.survey_api.urls import urlpatterns as survey_api_urls
+from testing_platform.survey.urls import urlpatterns as survey_urls
 
 API_PREFIX = "api/v1/"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path(f"{API_PREFIX}survey/", include(survey_urls)),
+    path(f"{API_PREFIX}survey/", include(survey_api_urls)),
+    path("", include(survey_urls)),
 ]

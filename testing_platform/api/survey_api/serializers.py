@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from testing_platform.survey.models import Survey, Question, UserAnswer
+from testing_platform.survey.models import Question, Survey, UserAnswer
 
 
 class SurveySerializer(serializers.ModelSerializer):

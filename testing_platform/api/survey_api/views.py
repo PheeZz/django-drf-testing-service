@@ -1,14 +1,13 @@
-from testing_platform.survey.models import Survey, Question, UserAnswer
 from django.db import models
-from .serializers import (
-    SurveySerializer,
-    QuestionSerializer,
-    AnswersListSerializer,
-)
 from rest_framework import generics
-from .analytics import SurveyAnalyticsCollector
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from testing_platform.survey.models import Question, Survey, UserAnswer
+
+from .analytics import SurveyAnalyticsCollector
+from .serializers import (AnswersListSerializer, QuestionSerializer,
+                          SurveySerializer)
 
 
 class SurveyAPIList(generics.ListCreateAPIView):

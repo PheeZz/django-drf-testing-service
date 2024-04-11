@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тесты</title>
+</head>
+
+<body>
+    <h1>Список доступных тестов</h1>
+    <p>При выборе теста будет доступно его прохождение, а также просмотр аналитики</p>
+    <ul>
+        {% for survey in surveys %}
+        <li><a href="{% url 'survey_questions' survey_id=survey.id %}?name={{ survey.name }}">{{ survey.name }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_survey' %}">Создать новый тест</a>
+</body>
+
+</html>
